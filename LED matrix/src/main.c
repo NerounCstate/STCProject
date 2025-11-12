@@ -12,7 +12,8 @@ typedef unsigned int  u16;
 
 #define LEDDZ P0
 
-u8 hc595_buf[8]={0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80};
+u8 gled_row[8]={0x38,0x7C,0x7E,0x3F,0x3F,0x7E,0x7C,0x38};//LED 点阵显示数字 0 的行数据
+u8 gled_col[8]={0x7f,0xbf,0xdf,0xef,0xf7,0xfb,0xfd,0xfe};//LED 点阵显示数字 0 的列数据
 
 void delay_10us(u16 ten_us)
 {
@@ -48,12 +49,13 @@ void hc595_write(u8 dat)
 }
 void main(){
     u8 i=0;
-    LEDDZ=0x00;//将 LED 点阵列全部设置为 0，即 LED 阴极为低电平
+    //LEDDZ=0x7f;//将 LED 点阵列全部设置为 0，即 LED 阴极为低电平
     while(1){
         for(i=0;i<8;i++){
-            hc595_write(0x00);//消除前面寄存器缓存数据
-            hc595_write(hc595_buf[i]);//写入新的数据
-            delay_ms(5);//延时 50ms
+            LEDDZ=gled_col[i];//传送列选数据
+            hc595_write(gled_row[i]);//传送行选数据
+            delay_10us(100);//延时一段时间，等待显示稳定
+            hc595_write(0x00);//消影
         }
     }
     
