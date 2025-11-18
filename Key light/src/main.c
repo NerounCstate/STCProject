@@ -2,21 +2,14 @@
 #define LED P2_0
 #define K3 P3_1
 
-void delay100us() {
-  //_nop_();
-  unsigned char i, j;
-  i = 2;
-  j = 15;
-  do {
-    while (--j)
-      ;
-  } while (--i);
+void delay10us(u16 i) {
+  while(i--)
 }
 void main() {
 
   while (1) {
     if (K3 == 1) {
-      delay100us();
+      delay10us(100);
       LED = 0;
     } else {
       LED = 1;
