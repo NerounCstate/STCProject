@@ -21,10 +21,10 @@ void exit0_init(void){
 //SDCC编译器使用__interrupt()来替代interrupt处理中断
 void exit0(void) __interrupt(0){
         delay_10us(1000);//消抖
-        //if(KEY3==0)//再次判断 K3 键是否按下
+        if(KEY3==0)//再次判断 K3 键是否按下
         while(KEY3 == 0){
             LED1= 0;//LED1 状态翻转
-        //delay_10us(100000);
+        delay_10us(100000);
         }
         
     }

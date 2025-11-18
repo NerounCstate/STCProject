@@ -1,5 +1,6 @@
 #include "8052.h"
 
+
 // 数据类型定义
 typedef unsigned char u8;
 typedef unsigned int u16;
